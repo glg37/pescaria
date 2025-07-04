@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      anzuelo_y_tanza_largo_0: 1683620522690412581
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

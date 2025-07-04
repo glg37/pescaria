@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      contenedor_amarillo_0: -9034956112056393150
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

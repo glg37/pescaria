@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sombra_suelta_para_estirar_y_usar_en_cualquier_lado_0: 7410300579906948526
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

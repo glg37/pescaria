@@ -409,7 +409,19 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      todo_junto_pescando_spritesheet_0: -8402465417894210176
+      todo_junto_pescando_spritesheet_1: 3169040907480884824
+      todo_junto_pescando_spritesheet_10: 8472431327668497977
+      todo_junto_pescando_spritesheet_11: 8233053225507058394
+      todo_junto_pescando_spritesheet_2: -3643374418907114490
+      todo_junto_pescando_spritesheet_3: -8666191879129879990
+      todo_junto_pescando_spritesheet_4: 2698786004916298705
+      todo_junto_pescando_spritesheet_5: -4956798959945099662
+      todo_junto_pescando_spritesheet_6: 5676003165377141490
+      todo_junto_pescando_spritesheet_7: 2640940247313823545
+      todo_junto_pescando_spritesheet_8: -36427935939980823
+      todo_junto_pescando_spritesheet_9: 379675692801142759
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

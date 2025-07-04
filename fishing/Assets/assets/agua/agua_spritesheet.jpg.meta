@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      agua_spritesheet_0: 1488814473774987423
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

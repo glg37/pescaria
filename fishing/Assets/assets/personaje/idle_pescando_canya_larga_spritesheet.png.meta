@@ -159,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      idle_pescando_canya_larga_spritesheet_0: 8740964285538701481
+      idle_pescando_canya_larga_spritesheet_1: 3609182701617279054
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

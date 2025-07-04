@@ -509,7 +509,23 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      puntaje_maximo_0: 2355054210572559110
+      puntaje_maximo_1: 5219744138450870667
+      puntaje_maximo_10: -1573953460999648156
+      puntaje_maximo_11: -6091763410744027408
+      puntaje_maximo_12: -5179618155874892124
+      puntaje_maximo_13: -1988598811573954105
+      puntaje_maximo_14: -1122431767564341108
+      puntaje_maximo_15: -6456118693817095969
+      puntaje_maximo_2: -888089216650221421
+      puntaje_maximo_3: -614042875062606347
+      puntaje_maximo_4: 6313608370484637276
+      puntaje_maximo_5: 7554448923208742056
+      puntaje_maximo_6: -1943364586933580249
+      puntaje_maximo_7: 2388654356760792969
+      puntaje_maximo_8: 2211199404503180434
+      puntaje_maximo_9: -4320331617713551924
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

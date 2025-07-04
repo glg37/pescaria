@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      noanim_pescando_sin_canya_0: -534390348509790353
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -309,7 +309,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pescando_spritesheet_0: -8751389151596827983
+      pescando_spritesheet_1: 1502984602052775634
+      pescando_spritesheet_2: 2416336393537144898
+      pescando_spritesheet_3: -803576880572878050
+      pescando_spritesheet_4: 1496292740946797870
+      pescando_spritesheet_5: -1224692823161796444
+      pescando_spritesheet_6: -8200716062070855500
+      pescando_spritesheet_7: 3482454975874603545
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

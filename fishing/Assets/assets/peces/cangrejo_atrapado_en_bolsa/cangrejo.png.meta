@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cangrejo_0: -7800989980792643594
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

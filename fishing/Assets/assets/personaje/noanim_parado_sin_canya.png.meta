@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      noanim_parado_sin_canya_0: 4611246410290484363
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

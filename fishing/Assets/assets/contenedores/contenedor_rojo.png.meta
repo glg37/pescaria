@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      contenedor_rojo_0: 3649340942427415837
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

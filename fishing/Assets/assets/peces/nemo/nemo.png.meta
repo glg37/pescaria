@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      nemo_0: 5057134397431356433
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

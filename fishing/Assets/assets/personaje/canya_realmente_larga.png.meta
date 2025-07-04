@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      canya_realmente_larga_0: -1500822955806757314
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

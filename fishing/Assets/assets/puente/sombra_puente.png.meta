@@ -159,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sombra_puente_0: 3742616474575560570
+      sombra_puente_1: 4044668370751080549
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
