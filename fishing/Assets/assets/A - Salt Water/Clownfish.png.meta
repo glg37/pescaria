@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Clownfish_0: -3040762595238011028
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

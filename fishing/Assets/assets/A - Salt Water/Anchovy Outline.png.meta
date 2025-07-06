@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Anchovy Outline_0: 169649895435709769
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
