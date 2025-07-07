@@ -69,7 +69,7 @@ public class SistemaDePesca : MonoBehaviour
         textoRaridade.gameObject.SetActive(true);
 
         // Esconde peixe/texto e permite nova pesca
-        Invoke(nameof(EsconderPeixeERaridade), 2f);
+        Invoke(nameof(EsconderPeixeERaridade), 0.5f);
     }
 
     void EsconderPeixeERaridade()

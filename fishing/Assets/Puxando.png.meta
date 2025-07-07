@@ -52,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -90,7 +90,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -144,10 +144,10 @@ TextureImporter:
       name: catch red fish-Sheet_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 45
-        width: 34
-        height: 48
+        x: 0
+        y: 0
+        width: 60
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,10 +166,10 @@ TextureImporter:
       name: catch red fish-Sheet_1
       rect:
         serializedVersion: 2
-        x: 29
+        x: 60
         y: 0
-        width: 27
-        height: 84
+        width: 60
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,10 +188,10 @@ TextureImporter:
       name: catch red fish-Sheet_2
       rect:
         serializedVersion: 2
-        x: 77
-        y: 5
-        width: 42
-        height: 87
+        x: 120
+        y: 0
+        width: 60
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,10 +210,10 @@ TextureImporter:
       name: catch red fish-Sheet_3
       rect:
         serializedVersion: 2
-        x: 137
-        y: 15
-        width: 42
-        height: 80
+        x: 180
+        y: 0
+        width: 60
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -232,10 +232,10 @@ TextureImporter:
       name: catch red fish-Sheet_4
       rect:
         serializedVersion: 2
-        x: 195
-        y: 37
-        width: 42
-        height: 60
+        x: 240
+        y: 0
+        width: 60
+        height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,33 +250,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: catch red fish-Sheet_5
-      rect:
-        serializedVersion: 2
-        x: 257
-        y: 45
-        width: 39
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cea8342fdd7e2d040800000000000000
-      internalID: 4671050703974927084
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e48582f242360d140afda95df6a776de
     internalID: 0
     vertices: []
     indices: 
@@ -285,7 +263,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      catch red fish-Sheet_0: -6514107737022914002
+      catch red fish-Sheet_1: 6275428427571666372
+      catch red fish-Sheet_2: 8233477698839678373
+      catch red fish-Sheet_3: 8411198970709593780
+      catch red fish-Sheet_4: -5960780615982826551
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
