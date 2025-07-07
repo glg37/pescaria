@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -135,89 +135,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: old man idle state no line-Sheet_0
+      name: parado_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 5
-        width: 34
-        height: 48
+        x: 0
+        y: 0
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 48406e452e17692f0800000000000000
-      internalID: -966459853123484540
+      spriteID: ec61ef99f2ccea842ad233206b8ac4e8
+      internalID: -1856345011
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: old man idle state no line-Sheet_1
+      name: parado_1
       rect:
         serializedVersion: 2
-        x: 77
-        y: 5
-        width: 34
-        height: 47
+        x: 60
+        y: 0
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5aa4ca8f11a81bf10800000000000000
-      internalID: 2283758295844670117
+      spriteID: 4409d7d09be191e40aed87801e6c76b9
+      internalID: -344073772
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: old man idle state no line-Sheet_2
+      name: parado_2
       rect:
         serializedVersion: 2
-        x: 137
-        y: 5
-        width: 37
-        height: 48
+        x: 120
+        y: 0
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9332466825331e920800000000000000
-      internalID: 3017749654849987385
+      spriteID: a5bb7f4af892d3b4895b90fef916e9d8
+      internalID: -1787804174
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: old man idle state no line-Sheet_3
+      name: parado_3
       rect:
         serializedVersion: 2
-        x: 197
-        y: 5
-        width: 36
-        height: 47
+        x: 180
+        y: 0
+        width: 60
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 18a67505780ef2350800000000000000
-      internalID: 5994256500826532481
+      spriteID: 49e8eeea1740bd94ebaec24da5bdc0fa
+      internalID: 1847612889
       vertices: []
       indices: 
       edges: []
@@ -226,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e281358355cfab54aa05396ca02548fc
     internalID: 0
     vertices: []
     indices: 
@@ -235,7 +235,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      parado_0: -1856345011
+      parado_1: -344073772
+      parado_2: -1787804174
+      parado_3: 1847612889
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
