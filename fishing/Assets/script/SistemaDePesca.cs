@@ -12,9 +12,11 @@ public class SistemaDePesca : MonoBehaviour
     public TextMeshProUGUI textoRaridade;
 
     private bool podePescar = true;
-    private float tempoUltimoClique = 0f;
-    private float intervaloClique = 0.3f;
     private GameObject peixeAtual;
+
+    // Variáveis para armazenar o resultado da pesca
+    private GameObject peixeSorteado;
+    private string raridadeSorteada;
 
     void Start()
     {
@@ -25,13 +27,7 @@ public class SistemaDePesca : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && podePescar)
         {
-            if (Time.time - tempoUltimoClique < intervaloClique)
-            {
-                // Clique duplo detectado
-                Pescar();
-            }
-
-            tempoUltimoClique = Time.time;
+            Pescar();
         }
     }
 
@@ -39,37 +35,40 @@ public class SistemaDePesca : MonoBehaviour
     {
         podePescar = false;
 
-        // Ativa a animação de pescar (gatilho no Animator)
+        // Ativa a animação de pescar
         animator.SetTrigger("Pescar");
 
-        // Sorteia o peixe
+        // Sorteia o peixe (mas ainda não instancia)
         float chance = Random.value;
-        GameObject prefabEscolhido = null;
-        string raridade = "";
 
         if (chance < 0.6f)
         {
-            prefabEscolhido = peixeRaroPrefab;
-            raridade = "Raro";
+            peixeSorteado = peixeRaroPrefab;
+            raridadeSorteada = "Raro";
         }
         else if (chance < 0.9f)
         {
-            prefabEscolhido = peixeEpicoPrefab;
-            raridade = "Épico";
+            peixeSorteado = peixeEpicoPrefab;
+            raridadeSorteada = "Épico";
         }
         else
         {
-            prefabEscolhido = peixeLendarioPrefab;
-            raridade = "Lendário";
+            peixeSorteado = peixeLendarioPrefab;
+            raridadeSorteada = "Lendário";
         }
 
-        // Instancia o peixe e mostra o texto
-        peixeAtual = Instantiate(prefabEscolhido, localAparicaoPeixe.position, Quaternion.identity);
-        textoRaridade.text = $"Você pescou um peixe {raridade}!";
+        // Aguarda 1 segundo antes de mostrar peixe e texto
+        Invoke(nameof(MostrarPeixeERaridade), 2f);
+    }
+
+    void MostrarPeixeERaridade()
+    {
+        peixeAtual = Instantiate(peixeSorteado, localAparicaoPeixe.position, Quaternion.identity);
+        textoRaridade.text = $"Você pescou um peixe {raridadeSorteada}!";
         textoRaridade.gameObject.SetActive(true);
 
-        // Esconde peixe/texto e permite nova pesca
-        Invoke(nameof(EsconderPeixeERaridade), 0.5f);
+        // Esconde peixe/texto depois de um tempo
+        Invoke(nameof(EsconderPeixeERaridade), 1f);
     }
 
     void EsconderPeixeERaridade()
