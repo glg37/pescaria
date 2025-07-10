@@ -1,7 +1,6 @@
+using UnityEngine;
 using System;
 using TMPro;
-using UnityEngine;
-using UnityEngine.Rendering;
 
 public class GanchoController : MonoBehaviour
 {
@@ -16,8 +15,7 @@ public class GanchoController : MonoBehaviour
     [Header("Referências")]
     public Transform cameraToFollow;
     public Transform player;
-    public Transform peixeSlotNoPlayer;        // Onde o peixe aparece no jogador
-    public TextMeshProUGUI raridadeText;       // Texto UI para mostrar raridade
+    public TextMeshProUGUI raridadeText;
 
     [Header("Offsets de Câmera")]
     public Vector3 offsetGancho = new Vector3(0f, 2f, -10f);
@@ -26,15 +24,15 @@ public class GanchoController : MonoBehaviour
     [Header("Tempo de exibição")]
     public float tempoExibicao = 3f;
 
-    [Header("Ponto onde o peixe fica preso no gancho")]
+    [Header("Ponto onde o peixe aparece preso no gancho")]
     public Transform fishAttachPoint;
 
     private Vector3 startPos;
     private bool isMoving = false;
     private bool goingDown = false;
+    private bool minigameAtivo = false; // <- evita reinício durante o minigame
     private float fixedCameraX;
     private Action onFinishedCallback;
-
     private GameObject peixePego;
 
     void Start()
@@ -46,10 +44,13 @@ public class GanchoController : MonoBehaviour
 
     public void IniciarMinigameComCallback(Action callback)
     {
+        if (minigameAtivo) return; // <- impede reinício se já está ativo
+
         transform.position = startPos;
         onFinishedCallback = callback;
         isMoving = true;
         goingDown = true;
+        minigameAtivo = true; // <- marca como ativo
     }
 
     void Update()
@@ -74,7 +75,7 @@ public class GanchoController : MonoBehaviour
         else if (!goingDown && pos.y >= startPos.y)
         {
             FinalizarMinigame(ref pos);
-            return; // Evita atualização da câmera após fim do minigame
+            return;
         }
 
         transform.position = pos;
@@ -97,18 +98,12 @@ public class GanchoController : MonoBehaviour
         pos.y = startPos.y;
         isMoving = false;
 
-        // Volta a câmera para o jogador
+        // Volta a câmera pro jogador
         if (cameraToFollow && player)
             cameraToFollow.position = player.position + offsetPlayer;
 
-        // Mostra peixe no player
-        if (peixePego != null && peixeSlotNoPlayer != null)
+        if (peixePego != null)
         {
-            peixePego.transform.SetParent(peixeSlotNoPlayer);
-            peixePego.transform.localPosition = Vector3.zero;
-            peixePego.transform.localRotation = Quaternion.identity;
-            peixePego.transform.localScale = Vector3.one;
-
             Fish scriptPeixe = peixePego.GetComponent<Fish>();
             if (scriptPeixe != null && raridadeText != null)
             {
@@ -116,23 +111,21 @@ public class GanchoController : MonoBehaviour
                 raridadeText.text = $"Você pegou um peixe {raridade}!";
                 raridadeText.color = CorDaRaridade(raridade);
                 raridadeText.gameObject.SetActive(true);
-                Invoke(nameof(EsconderRaridadeETirarPeixe), tempoExibicao);
+                Invoke(nameof(EsconderTextoRaridade), tempoExibicao);
             }
-        }
 
-        onFinishedCallback?.Invoke();
-    }
-
-    private void EsconderRaridadeETirarPeixe()
-    {
-        if (raridadeText != null)
-            raridadeText.gameObject.SetActive(false);
-
-        if (peixePego != null)
-        {
             Destroy(peixePego);
             peixePego = null;
         }
+
+        minigameAtivo = false; // <- libera o botão novamente
+        onFinishedCallback?.Invoke();
+    }
+
+    void EsconderTextoRaridade()
+    {
+        if (raridadeText != null)
+            raridadeText.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -141,7 +134,13 @@ public class GanchoController : MonoBehaviour
         {
             peixePego = other.gameObject;
 
-            // Anexa o peixe ao ponto de fisgada do gancho
+            Fish scriptPeixe = peixePego.GetComponent<Fish>();
+            if (scriptPeixe != null)
+            {
+                scriptPeixe.Pegar();  // avisa o peixe que foi pego
+            }
+
+            // Prende o peixe no ponto fixo do gancho
             if (fishAttachPoint != null)
             {
                 peixePego.transform.SetParent(fishAttachPoint);
@@ -150,14 +149,26 @@ public class GanchoController : MonoBehaviour
             }
             else
             {
-                // fallback caso não tenha setado o ponto
                 peixePego.transform.SetParent(this.transform);
                 peixePego.transform.localPosition = Vector3.zero;
             }
 
-            peixePego.GetComponent<Collider2D>().enabled = false;
+            // Desativa física e colisão
+            var rb = peixePego.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;        // substitui velocity
+                rb.bodyType = RigidbodyType2D.Kinematic; // substitui isKinematic = true
+                rb.simulated = false;                    // continua igual
+
+            }
+
+            var col = peixePego.GetComponent<Collider2D>();
+            if (col != null)
+                col.enabled = false;
         }
     }
+
 
     Color CorDaRaridade(Fish.Raridade raridade)
     {
