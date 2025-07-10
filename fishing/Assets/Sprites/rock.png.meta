@@ -1,25 +1,10 @@
 fileFormatVersion: 2
-guid: b28c38e251887a04fb18ae0d326bfde7
+guid: ce4ec74848661734199c26cc20cc3bdf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6514107737022914002
-    second: catch red fish-Sheet_0
-  - first:
-      213: 6275428427571666372
-    second: catch red fish-Sheet_1
-  - first:
-      213: 8233477698839678373
-    second: catch red fish-Sheet_2
-  - first:
-      213: 8411198970709593780
-    second: catch red fish-Sheet_3
-  - first:
-      213: -5960780615982826551
-    second: catch red fish-Sheet_4
-  - first:
-      213: 4671050703974927084
-    second: catch red fish-Sheet_5
+      213: -2182124076254010665
+    second: rock_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -61,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -141,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: catch red fish-Sheet_0
+      name: rock_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 60
-        height: 100
+        x: 416
+        y: 536
+        width: 428
+        height: 228
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,96 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e222022c68d3995a0800000000000000
-      internalID: -6514107737022914002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: catch red fish-Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 60
-        y: 0
-        width: 60
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4cd1ccef7ecc61750800000000000000
-      internalID: 6275428427571666372
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: catch red fish-Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 0
-        width: 60
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5ad80712850334270800000000000000
-      internalID: 8233477698839678373
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: catch red fish-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 180
-        y: 0
-        width: 60
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4bec64046e49ab470800000000000000
-      internalID: 8411198970709593780
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: catch red fish-Sheet_4
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 0
-        width: 60
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9cb3f408c9d074da0800000000000000
-      internalID: -5960780615982826551
+      spriteID: 7d26d0bc6b987b1e0800000000000000
+      internalID: -2182124076254010665
       vertices: []
       indices: 
       edges: []
@@ -254,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e48582f242360d140afda95df6a776de
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -264,11 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      catch red fish-Sheet_0: -6514107737022914002
-      catch red fish-Sheet_1: 6275428427571666372
-      catch red fish-Sheet_2: 8233477698839678373
-      catch red fish-Sheet_3: 8411198970709593780
-      catch red fish-Sheet_4: -5960780615982826551
+      rock_0: -2182124076254010665
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

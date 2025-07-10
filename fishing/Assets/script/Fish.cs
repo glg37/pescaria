@@ -24,18 +24,21 @@ public class Fish : MonoBehaviour
     {
         pontoInicial = transform.position;
 
-        // Define direção com base na posição inicial
         if (transform.position.x >= 0)
             direcao = Vector3.left;
         else
             direcao = Vector3.right;
+
+        
+        int peixeLayer = LayerMask.NameToLayer("Peixe");
+        Physics2D.IgnoreLayerCollision(peixeLayer, peixeLayer, true);
     }
 
     void Update()
     {
         if (foiPego) return;
 
-        // Move o peixe sempre no eixo X, sem seguir a rotação
+        
         transform.position += direcao * moveSpeed * Time.deltaTime;
 
         float distancia = Vector3.Distance(transform.position, pontoInicial);
@@ -49,7 +52,6 @@ public class Fish : MonoBehaviour
     {
         foiPego = true;
 
-        // ?? Removido: não gira mais a sprite
-        // transform.localRotation = Quaternion.Euler(0, 0, 90);
+        
     }
 }
