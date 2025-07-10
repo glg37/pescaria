@@ -54,4 +54,13 @@ public class Fish : MonoBehaviour
 
         
     }
+    public Vector3 GetPosicaoOriginal()
+    {
+        return pontoInicial;
+    }
+
+    public void Soltar()
+    {
+        foiPego = false;
+    }
 }

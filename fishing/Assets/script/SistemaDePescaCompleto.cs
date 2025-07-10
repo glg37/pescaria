@@ -4,7 +4,7 @@ public class SistemaDePescaCompleto : MonoBehaviour
 {
     public GanchoController ganchoController;
     public Animator animatorPersonagem;
-    public float tempoDaAnimacao = 1.2f; // ajuste se necessário
+    public float tempoDaAnimacao = 0.5f; 
 
     private bool minigameEmProgresso = false;
 
