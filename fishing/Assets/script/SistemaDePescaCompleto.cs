@@ -44,4 +44,8 @@ public class SistemaDePescaCompleto : MonoBehaviour
             });
         }
     }
+    public void AnimationEvent_IniciarMinigame()
+    {
+        IniciarMinigame();
+    }
 }
