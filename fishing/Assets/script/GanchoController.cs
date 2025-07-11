@@ -211,19 +211,21 @@ public class GanchoController : MonoBehaviour
             Fish scriptPeixe = peixePego.GetComponent<Fish>();
             if (scriptPeixe != null)
             {
-               
+                // **Subtrair pontos ao soltar**
                 int pontosASubtrair = PontosPorRaridade(scriptPeixe.raridade);
                 pontuacaoTotal -= pontosASubtrair;
-                if (pontuacaoTotal < 0) pontuacaoTotal = 0; 
+                if (pontuacaoTotal < 0) pontuacaoTotal = 0; // Não deixar negativo
 
-            
                 if (textoPontuacao != null)
                     textoPontuacao.text = $"Pontos: {pontuacaoTotal}";
 
-                
+                // Restaura posição, rotação e escala originais
                 peixePego.transform.SetParent(null);
                 peixePego.transform.position = scriptPeixe.GetPosicaoOriginal();
+                peixePego.transform.rotation = scriptPeixe.GetRotacaoOriginal();
+                peixePego.transform.localScale = scriptPeixe.GetEscalaOriginal();
 
+                // Reativa o Rigidbody2D
                 var rb = peixePego.GetComponent<Rigidbody2D>();
                 if (rb != null)
                 {
@@ -231,19 +233,25 @@ public class GanchoController : MonoBehaviour
                     rb.simulated = true;
                 }
 
+                // Reativa o collider
                 var col = peixePego.GetComponent<Collider2D>();
                 if (col != null)
                     col.enabled = true;
 
+                // Permite o peixe voltar a se mover normalmente
                 scriptPeixe.Soltar();
             }
 
+            // Remove referência ao peixe preso
             peixePego = null;
 
+            // Esconde o botão de soltar
             if (botaoSoltarPeixe != null)
                 botaoSoltarPeixe.gameObject.SetActive(false);
         }
     }
+
+
 
 
     Color CorDaRaridade(Fish.Raridade raridade)
