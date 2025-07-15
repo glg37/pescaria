@@ -1867,18 +1867,17 @@ MonoBehaviour:
   cameraToFollow: {fileID: 1478996394}
   player: {fileID: 1252378981}
   raridadeText: {fileID: 1872716109}
+  textoPontuacao: {fileID: 1591347533}
   offsetGancho: {x: 0, y: 0.08, z: -10}
   offsetPlayer: {x: 0, y: -0.86, z: -10}
-  tempoExibicao: 3
   fishAttachPoint: {fileID: 968179006}
-  pontuacaoTotal: 0
-  textoPontuacao: {fileID: 1591347533}
+  botaoSoltarPeixe: {fileID: 1629888237}
+  tempoExibicao: 3
   corComum: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
   corIncomum: {r: 0.13011748, g: 0.6415094, b: 0.13011748, a: 1}
   corRaro: {r: 0, g: 0, b: 1, a: 1}
   corEpico: {r: 0.435849, g: 0.15566038, b: 0.6226415, a: 1}
   corLendario: {r: 1, g: 0.5, b: 0, a: 1}
-  botaoSoltarPeixe: {fileID: 1629888237}
 --- !u!1 &968179005
 GameObject:
   m_ObjectHideFlags: 0
@@ -3189,7 +3188,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1e13ca4cbc224ee4ebd606c28a36fc7b, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3255,7 +3254,7 @@ MonoBehaviour:
   m_margin: {x: -347.43073, y: 0, z: -1001.79456, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1872716110

@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class SistemaDePescaCompleto : MonoBehaviour
 {
-    public GanchoController ganchoController;
-    public Animator animatorPersonagem;
-    public float tempoDaAnimacao = 0.5f; 
+    [SerializeField] private GanchoController ganchoController;
+    [SerializeField] private Animator animatorPersonagem;
+    [SerializeField] private float tempoDaAnimacao = 0.5f;
 
     private bool minigameEmProgresso = false;
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0) && !minigameEmProgresso)
         {
@@ -17,33 +17,30 @@ public class SistemaDePescaCompleto : MonoBehaviour
         }
     }
 
-    void JogarLinha()
+    private void JogarLinha()
     {
-        if (animatorPersonagem != null)
-        {
-            animatorPersonagem.SetTrigger("Pescar");
-        }
-
+        animatorPersonagem?.SetTrigger("Pescar");
         Invoke(nameof(IniciarMinigame), tempoDaAnimacao);
     }
 
-    void IniciarMinigame()
+    private void IniciarMinigame()
     {
-        if (ganchoController != null)
-        {
-            if (ganchoController.cameraToFollow != null)
-            {
-                Vector3 target = ganchoController.transform.position + ganchoController.offsetGancho;
-                ganchoController.cameraToFollow.position = target;
-            }
+        if (ganchoController == null) return;
 
-            ganchoController.IniciarMinigameComCallback(() =>
-            {
-                Debug.Log("Minigame finalizado!");
-                minigameEmProgresso = false;
-            });
+        if (ganchoController.Camera != null)
+        {
+            Vector3 target = ganchoController.transform.position + ganchoController.OffsetGancho;
+            ganchoController.Camera.position = target;
         }
+
+        ganchoController.IniciarMinigameComCallback(() =>
+        {
+            Debug.Log("Minigame finalizado!");
+            minigameEmProgresso = false;
+        });
     }
+
+    
     public void AnimationEvent_IniciarMinigame()
     {
         IniciarMinigame();

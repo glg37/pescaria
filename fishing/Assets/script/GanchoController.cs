@@ -1,56 +1,43 @@
 using UnityEngine;
-using System;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class GanchoController : MonoBehaviour
 {
     [Header("Movimento")]
-    public float descendSpeed = 5f;
-    public float ascendSpeed = 3f;
-    public float horizontalSpeed = 4f;
-    public float minY = -10f;
-    public float minX = -5f;
-    public float maxX = 5f;
+    [SerializeField] private float descendSpeed = 5f;
+    [SerializeField] private float ascendSpeed = 3f;
+    [SerializeField] private float horizontalSpeed = 4f;
+    [SerializeField] private float minY = -10f, minX = -5f, maxX = 5f;
 
     [Header("Referências")]
-    public Transform cameraToFollow;
-    public Transform player;
-    public TextMeshProUGUI raridadeText;
+    [SerializeField] private Transform cameraToFollow;
+    [SerializeField] private Transform player;
+    [SerializeField] private TextMeshProUGUI raridadeText;
+    [SerializeField] private TextMeshProUGUI textoPontuacao;
 
-    [Header("Offsets de Câmera")]
-    public Vector3 offsetGancho = new Vector3(0f, 2f, -10f);
-    public Vector3 offsetPlayer = new Vector3(0f, 1f, -10f);
+    [Header("Offsets")]
+    [SerializeField] private Vector3 offsetGancho = new Vector3(0f, 2f, -10f);
+    [SerializeField] private Vector3 offsetPlayer = new Vector3(0f, 1f, -10f);
 
-    [Header("Tempo de exibição")]
-    public float tempoExibicao = 3f;
+    [Header("Extras")]
+    [SerializeField] private Transform fishAttachPoint;
+    [SerializeField] private Button botaoSoltarPeixe;
+    [SerializeField] private float tempoExibicao = 3f;
+    [SerializeField] private Color corComum, corIncomum, corRaro, corEpico, corLendario;
 
-    [Header("Ponto onde o peixe aparece preso no gancho")]
-    public Transform fishAttachPoint;
-
-    [Header("Pontuação")]
-    public int pontuacaoTotal = 0;
-    public TextMeshProUGUI textoPontuacao;
-
-    [Header("Cores das Raridades")]
-    public Color corComum = Color.gray;
-    public Color corIncomum = Color.green;
-    public Color corRaro = Color.blue;
-    public Color corEpico = new Color(0.6f, 0f, 1f);
-    public Color corLendario = new Color(1f, 0.5f, 0f);
-
-    [Header("Botão de Soltar Peixe")]
-    public Button botaoSoltarPeixe;
-
+    private int pontuacaoTotal;
     private Vector3 startPos;
-    private bool isMoving = false;
-    private bool goingDown = false;
-    private bool minigameAtivo = false;
     private float fixedCameraX;
+    private bool isMoving, goingDown, minigameAtivo;
     private Action onFinishedCallback;
     private GameObject peixePego;
 
-    void Start()
+    public Transform Camera => cameraToFollow;
+    public Vector3 OffsetGancho => offsetGancho;
+
+    private void Start()
     {
         startPos = transform.position;
         if (cameraToFollow != null)
@@ -67,14 +54,11 @@ public class GanchoController : MonoBehaviour
     {
         if (minigameAtivo) return;
 
-        
         if (peixePego != null)
         {
             Destroy(peixePego);
             peixePego = null;
-
-            if (botaoSoltarPeixe != null)
-                botaoSoltarPeixe.gameObject.SetActive(false);
+            botaoSoltarPeixe?.gameObject.SetActive(false);
         }
 
         transform.position = startPos;
@@ -84,18 +68,13 @@ public class GanchoController : MonoBehaviour
         minigameAtivo = true;
     }
 
-
-    void Update()
+    private void Update()
     {
-
         if (!isMoving) return;
 
         Vector3 pos = transform.position;
-
         pos.x = Mathf.Clamp(pos.x + Input.GetAxisRaw("Horizontal") * horizontalSpeed * Time.deltaTime, minX, maxX);
-
-        float vSpeed = goingDown ? -descendSpeed : ascendSpeed;
-        pos.y += vSpeed * Time.deltaTime;
+        pos.y += (goingDown ? -descendSpeed : ascendSpeed) * Time.deltaTime;
 
         if (goingDown && pos.y <= minY)
         {
@@ -112,18 +91,13 @@ public class GanchoController : MonoBehaviour
         AtualizarCameraY();
     }
 
-    void AtualizarCameraY()
+    private void AtualizarCameraY()
     {
-        if (!cameraToFollow) return;
-
-        cameraToFollow.position = new Vector3(
-            fixedCameraX,
-            transform.position.y + offsetGancho.y,
-            transform.position.z + offsetGancho.z
-        );
+        if (cameraToFollow == null) return;
+        cameraToFollow.position = new Vector3(fixedCameraX, transform.position.y + offsetGancho.y, transform.position.z + offsetGancho.z);
     }
 
-    void FinalizarMinigame(ref Vector3 pos)
+    private void FinalizarMinigame(ref Vector3 pos)
     {
         pos.y = startPos.y;
         isMoving = false;
@@ -136,147 +110,107 @@ public class GanchoController : MonoBehaviour
             Fish scriptPeixe = peixePego.GetComponent<Fish>();
             if (scriptPeixe != null && raridadeText != null)
             {
-                var raridade = scriptPeixe.raridade;
-
-                int pontos = PontosPorRaridade(raridade);
+                int pontos = PontosPorRaridade(scriptPeixe.TipoRaridade);
                 pontuacaoTotal += pontos;
-                if (textoPontuacao != null)
-                    textoPontuacao.text = $"Pontos: {pontuacaoTotal}";
+                textoPontuacao.text = $"Pontos: {pontuacaoTotal}";
 
-                raridadeText.text = $"Você pegou um peixe {raridade}!";
-                raridadeText.color = CorDaRaridade(raridade);
+                raridadeText.text = $"Você pegou um peixe {scriptPeixe.TipoRaridade}!";
+                raridadeText.color = CorDaRaridade(scriptPeixe.TipoRaridade);
                 raridadeText.gameObject.SetActive(true);
                 Invoke(nameof(EsconderTextoRaridade), tempoExibicao);
             }
-
-            if (botaoSoltarPeixe != null)
-                botaoSoltarPeixe.gameObject.SetActive(true);
+            botaoSoltarPeixe?.gameObject.SetActive(true);
         }
 
         minigameAtivo = false;
         onFinishedCallback?.Invoke();
     }
 
-    void EsconderTextoRaridade()
+    private void EsconderTextoRaridade()
     {
-        if (raridadeText != null)
-            raridadeText.gameObject.SetActive(false);
+        raridadeText?.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (isMoving && other.CompareTag("Peixe") && peixePego == null)
+        if (!isMoving || peixePego != null || !other.CompareTag("Peixe")) return;
+
+        peixePego = other.gameObject;
+        Fish scriptPeixe = peixePego.GetComponent<Fish>();
+        scriptPeixe?.Pegar();
+
+        peixePego.transform.SetParent(fishAttachPoint != null ? fishAttachPoint : transform);
+        peixePego.transform.localPosition = Vector3.zero;
+        peixePego.transform.localRotation = Quaternion.identity;
+
+        var rb = peixePego.GetComponent<Rigidbody2D>();
+        if (rb != null)
         {
-            peixePego = other.gameObject;
+            rb.linearVelocity = Vector2.zero;
+            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.simulated = false;
+        }
 
-            Fish scriptPeixe = peixePego.GetComponent<Fish>();
-            if (scriptPeixe != null)
-            {
-                scriptPeixe.Pegar();
-            }
+        var col = peixePego.GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
+    }
 
-            if (fishAttachPoint != null)
-            {
-                peixePego.transform.SetParent(fishAttachPoint);
-                peixePego.transform.localPosition = Vector3.zero;
-                peixePego.transform.localRotation = Quaternion.identity;
-            }
-            else
-            {
-                peixePego.transform.SetParent(this.transform);
-                peixePego.transform.localPosition = Vector3.zero;
-            }
+    private void SoltarPeixe()
+    {
+        if (peixePego == null) return;
+
+        Fish scriptPeixe = peixePego.GetComponent<Fish>();
+        if (scriptPeixe != null)
+        {
+            pontuacaoTotal -= PontosPorRaridade(scriptPeixe.TipoRaridade);
+            if (pontuacaoTotal < 0) pontuacaoTotal = 0;
+            textoPontuacao.text = $"Pontos: {pontuacaoTotal}";
+
+            peixePego.transform.SetParent(null);
+            peixePego.transform.position = scriptPeixe.GetPosicaoOriginal();
+            peixePego.transform.rotation = scriptPeixe.GetRotacaoOriginal();
+            peixePego.transform.localScale = scriptPeixe.GetEscalaOriginal();
 
             var rb = peixePego.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.linearVelocity = Vector2.zero;
-                rb.bodyType = RigidbodyType2D.Kinematic;
-                rb.simulated = false;
+                rb.bodyType = RigidbodyType2D.Dynamic;
+                rb.simulated = true;
             }
 
             var col = peixePego.GetComponent<Collider2D>();
-            if (col != null)
-                col.enabled = false;
+            if (col != null) col.enabled = true;
 
-           
+            scriptPeixe.Soltar();
         }
+
+        peixePego = null;
+        botaoSoltarPeixe?.gameObject.SetActive(false);
     }
 
-
-    void SoltarPeixe()
+    private Color CorDaRaridade(Fish.Raridade raridade)
     {
-        if (peixePego != null)
+        return raridade switch
         {
-            Fish scriptPeixe = peixePego.GetComponent<Fish>();
-            if (scriptPeixe != null)
-            {
-                // **Subtrair pontos ao soltar**
-                int pontosASubtrair = PontosPorRaridade(scriptPeixe.raridade);
-                pontuacaoTotal -= pontosASubtrair;
-                if (pontuacaoTotal < 0) pontuacaoTotal = 0; // Não deixar negativo
-
-                if (textoPontuacao != null)
-                    textoPontuacao.text = $"Pontos: {pontuacaoTotal}";
-
-                // Restaura posição, rotação e escala originais
-                peixePego.transform.SetParent(null);
-                peixePego.transform.position = scriptPeixe.GetPosicaoOriginal();
-                peixePego.transform.rotation = scriptPeixe.GetRotacaoOriginal();
-                peixePego.transform.localScale = scriptPeixe.GetEscalaOriginal();
-
-                // Reativa o Rigidbody2D
-                var rb = peixePego.GetComponent<Rigidbody2D>();
-                if (rb != null)
-                {
-                    rb.bodyType = RigidbodyType2D.Dynamic;
-                    rb.simulated = true;
-                }
-
-                // Reativa o collider
-                var col = peixePego.GetComponent<Collider2D>();
-                if (col != null)
-                    col.enabled = true;
-
-                // Permite o peixe voltar a se mover normalmente
-                scriptPeixe.Soltar();
-            }
-
-            // Remove referência ao peixe preso
-            peixePego = null;
-
-            // Esconde o botão de soltar
-            if (botaoSoltarPeixe != null)
-                botaoSoltarPeixe.gameObject.SetActive(false);
-        }
+            Fish.Raridade.Comum => corComum,
+            Fish.Raridade.Incomum => corIncomum,
+            Fish.Raridade.Raro => corRaro,
+            Fish.Raridade.Épico => corEpico,
+            Fish.Raridade.Lendário => corLendario,
+            _ => Color.white
+        };
     }
 
-
-
-
-    Color CorDaRaridade(Fish.Raridade raridade)
+    private int PontosPorRaridade(Fish.Raridade raridade)
     {
-        switch (raridade)
+        return raridade switch
         {
-            case Fish.Raridade.Comum: return corComum;
-            case Fish.Raridade.Incomum: return corIncomum;
-            case Fish.Raridade.Raro: return corRaro;
-            case Fish.Raridade.Épico: return corEpico;
-            case Fish.Raridade.Lendário: return corLendario;
-            default: return Color.white;
-        }
-    }
-
-    int PontosPorRaridade(Fish.Raridade raridade)
-    {
-        switch (raridade)
-        {
-            case Fish.Raridade.Comum: return 10;
-            case Fish.Raridade.Incomum: return 25;
-            case Fish.Raridade.Raro: return 50;
-            case Fish.Raridade.Épico: return 100;
-            case Fish.Raridade.Lendário: return 250;
-            default: return 0;
-        }
+            Fish.Raridade.Comum => 10,
+            Fish.Raridade.Incomum => 25,
+            Fish.Raridade.Raro => 50,
+            Fish.Raridade.Épico => 100,
+            Fish.Raridade.Lendário => 250,
+            _ => 0
+        };
     }
 }
