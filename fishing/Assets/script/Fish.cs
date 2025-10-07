@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Fish : MonoBehaviour
+public class Fish : MonoBehaviour, IFishing 
 {
     public enum Raridade
     {

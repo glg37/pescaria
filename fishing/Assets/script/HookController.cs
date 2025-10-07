@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
-public class GanchoController : MonoBehaviour
+public class HookController : MonoBehaviour,IHook
 {
     [Header("Movimento")]
     [SerializeField] private float descendSpeed = 5f;
@@ -14,32 +14,36 @@ public class GanchoController : MonoBehaviour
     [Header("Referências")]
     [SerializeField] private Transform cameraToFollow;
     [SerializeField] private Transform player;
-    [SerializeField] private TextMeshProUGUI raridadeText;
-    [SerializeField] private TextMeshProUGUI textoPontuacao;
+    [SerializeField] private TextMeshProUGUI rarityText;
+    [SerializeField] private TextMeshProUGUI textPoints;
 
     [Header("Offsets")]
-    [SerializeField] private Vector3 offsetGancho = new Vector3(0f, 2f, -10f);
+    [SerializeField] private Vector3 offsetHook = new Vector3(0f, 2f, -10f);
     [SerializeField] private Vector3 offsetPlayer = new Vector3(0f, 1f, -10f);
 
     [Header("Extras")]
     [SerializeField] private Transform fishAttachPoint;
     [SerializeField] private Button botaoSoltarPeixe;
-    [SerializeField] private float tempoExibicao = 3f;
+    [SerializeField] private float timeDisplay = 3f;
     [SerializeField] private Color corComum, corIncomum, corRaro, corEpico, corLendario;
 
-    private int pontuacaoTotal;
+    private int Totalpoints;
     private Vector3 startPos;
     private float fixedCameraX;
-    private bool isMoving, goingDown, minigameAtivo;
+    private bool isMoving, goingDown, minigameActive;
     private Action onFinishedCallback;
-    private GameObject peixePego;
+    private GameObject fishCaught;
+
+  
+    public Vector3 StartPosition => startPos;
 
     public Transform Camera => cameraToFollow;
-    public Vector3 OffsetGancho => offsetGancho;
+    public Vector3 OffsetHook => offsetHook;
 
     private void Start()
     {
         startPos = transform.position;
+
         if (cameraToFollow != null)
             fixedCameraX = cameraToFollow.position.x;
 
@@ -52,12 +56,12 @@ public class GanchoController : MonoBehaviour
 
     public void IniciarMinigameComCallback(Action callback)
     {
-        if (minigameAtivo) return;
+        if (minigameActive) return;
 
-        if (peixePego != null)
+        if (fishCaught != null)
         {
-            Destroy(peixePego);
-            peixePego = null;
+            Destroy(fishCaught);
+            fishCaught = null;
             botaoSoltarPeixe?.gameObject.SetActive(false);
         }
 
@@ -65,7 +69,7 @@ public class GanchoController : MonoBehaviour
         onFinishedCallback = callback;
         isMoving = true;
         goingDown = true;
-        minigameAtivo = true;
+        minigameActive = true;
     }
 
     private void Update()
@@ -94,7 +98,7 @@ public class GanchoController : MonoBehaviour
     private void AtualizarCameraY()
     {
         if (cameraToFollow == null) return;
-        cameraToFollow.position = new Vector3(fixedCameraX, transform.position.y + offsetGancho.y, transform.position.z + offsetGancho.z);
+        cameraToFollow.position = new Vector3(fixedCameraX, transform.position.y + offsetHook.y, transform.position.z + offsetHook.z);
     }
 
     private void FinalizarMinigame(ref Vector3 pos)
@@ -105,45 +109,45 @@ public class GanchoController : MonoBehaviour
         if (cameraToFollow && player)
             cameraToFollow.position = player.position + offsetPlayer;
 
-        if (peixePego != null)
+        if (fishCaught != null)
         {
-            Fish scriptPeixe = peixePego.GetComponent<Fish>();
-            if (scriptPeixe != null && raridadeText != null)
+            Fish scriptPeixe = fishCaught.GetComponent<Fish>();
+            if (scriptPeixe != null && rarityText != null)
             {
                 int pontos = PontosPorRaridade(scriptPeixe.TipoRaridade);
-                pontuacaoTotal += pontos;
-                textoPontuacao.text = $"Pontos: {pontuacaoTotal}";
+                Totalpoints += pontos;
+                textPoints.text = $"Pontos: {Totalpoints}";
 
-                raridadeText.text = $"Você pegou um peixe {scriptPeixe.TipoRaridade}!";
-                raridadeText.color = CorDaRaridade(scriptPeixe.TipoRaridade);
-                raridadeText.gameObject.SetActive(true);
-                Invoke(nameof(EsconderTextoRaridade), tempoExibicao);
+                rarityText.text = $"Você pegou um peixe {scriptPeixe.TipoRaridade}!";
+                rarityText.color = CorDaRaridade(scriptPeixe.TipoRaridade);
+                rarityText.gameObject.SetActive(true);
+                Invoke(nameof(EsconderTextoRaridade), timeDisplay);
             }
             botaoSoltarPeixe?.gameObject.SetActive(true);
         }
 
-        minigameAtivo = false;
+        minigameActive = false;
         onFinishedCallback?.Invoke();
     }
 
     private void EsconderTextoRaridade()
     {
-        raridadeText?.gameObject.SetActive(false);
+        rarityText?.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!isMoving || peixePego != null || !other.CompareTag("Peixe")) return;
+        if (!isMoving || fishCaught != null || !other.CompareTag("Peixe")) return;
 
-        peixePego = other.gameObject;
-        Fish scriptPeixe = peixePego.GetComponent<Fish>();
+        fishCaught = other.gameObject;
+        Fish scriptPeixe = fishCaught.GetComponent<Fish>();
         scriptPeixe?.Pegar();
 
-        peixePego.transform.SetParent(fishAttachPoint != null ? fishAttachPoint : transform);
-        peixePego.transform.localPosition = Vector3.zero;
-        peixePego.transform.localRotation = Quaternion.identity;
+        fishCaught.transform.SetParent(fishAttachPoint != null ? fishAttachPoint : transform);
+        fishCaught.transform.localPosition = Vector3.zero;
+        fishCaught.transform.localRotation = Quaternion.identity;
 
-        var rb = peixePego.GetComponent<Rigidbody2D>();
+        var rb = fishCaught.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
@@ -151,40 +155,40 @@ public class GanchoController : MonoBehaviour
             rb.simulated = false;
         }
 
-        var col = peixePego.GetComponent<Collider2D>();
+        var col = fishCaught.GetComponent<Collider2D>();
         if (col != null) col.enabled = false;
     }
 
     private void SoltarPeixe()
     {
-        if (peixePego == null) return;
+        if (fishCaught == null) return;
 
-        Fish scriptPeixe = peixePego.GetComponent<Fish>();
+        Fish scriptPeixe = fishCaught.GetComponent<Fish>();
         if (scriptPeixe != null)
         {
-            pontuacaoTotal -= PontosPorRaridade(scriptPeixe.TipoRaridade);
-            if (pontuacaoTotal < 0) pontuacaoTotal = 0;
-            textoPontuacao.text = $"Pontos: {pontuacaoTotal}";
+            Totalpoints -= PontosPorRaridade(scriptPeixe.TipoRaridade);
+            if (Totalpoints < 0) Totalpoints = 0;
+            textPoints.text = $"Pontos: {Totalpoints}";
 
-            peixePego.transform.SetParent(null);
-            peixePego.transform.position = scriptPeixe.GetPosicaoOriginal();
-            peixePego.transform.rotation = scriptPeixe.GetRotacaoOriginal();
-            peixePego.transform.localScale = scriptPeixe.GetEscalaOriginal();
+            fishCaught.transform.SetParent(null);
+            fishCaught.transform.position = scriptPeixe.GetPosicaoOriginal();
+            fishCaught.transform.rotation = scriptPeixe.GetRotacaoOriginal();
+            fishCaught.transform.localScale = scriptPeixe.GetEscalaOriginal();
 
-            var rb = peixePego.GetComponent<Rigidbody2D>();
+            var rb = fishCaught.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
                 rb.bodyType = RigidbodyType2D.Dynamic;
                 rb.simulated = true;
             }
 
-            var col = peixePego.GetComponent<Collider2D>();
+            var col = fishCaught.GetComponent<Collider2D>();
             if (col != null) col.enabled = true;
 
             scriptPeixe.Soltar();
         }
 
-        peixePego = null;
+        fishCaught = null;
         botaoSoltarPeixe?.gameObject.SetActive(false);
     }
 

@@ -102,3 +102,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raridade: 1
   moveSpeed: 2
+  limiteDistancia: 30

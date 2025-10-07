@@ -1,46 +1,97 @@
 using UnityEngine;
+using TMPro;
 
-public class SistemaDePescaCompleto : MonoBehaviour
+public class SistemaDePescaCompleto : MonoBehaviour, IFishingMinigame
 {
-    [SerializeField] private GanchoController ganchoController;
-    [SerializeField] private Animator animatorPersonagem;
+    [SerializeField] private HookController HookController;
+    [SerializeField] private Animator animatorCharacter;
     [SerializeField] private float tempoDaAnimacao = 0.5f;
 
-    private bool minigameEmProgresso = false;
+    [SerializeField] private TextMeshProUGUI textTutorial;
+    [SerializeField] private float timeTutorial = 5f;
 
-    private void Update()
+    private bool minigameInProgress = false;
+    private bool tutorialDisplayed = false; 
+
+    private void Start()
     {
-        if (Input.GetMouseButtonDown(0) && !minigameEmProgresso)
+        if (textTutorial != null)
         {
-            minigameEmProgresso = true;
-            JogarLinha();
+            textTutorial.gameObject.SetActive(false);
         }
     }
 
-    private void JogarLinha()
+    private void Update()
     {
-        animatorPersonagem?.SetTrigger("Pescar");
+       
+        if (!tutorialDisplayed && !minigameInProgress && HookStopped())
+        {
+            MostrarTutorial();
+        }
+
+        if (Input.GetMouseButtonDown(0) && !minigameInProgress)
+        {
+            minigameInProgress = true;
+            Playline();
+        }
+    }
+
+    private bool HookStopped()
+    {
+        if (HookController == null) return false;
+
+        Vector3 posAtual = HookController.transform.position;
+        Vector3 posInicial = HookController.StartPosition; 
+
+    
+        float margem = 0.1f;
+        return Vector3.Distance(posAtual, posInicial) < margem;
+    }
+
+    private void Playline()
+    {
+        if (textTutorial != null)
+        {
+            textTutorial.gameObject.SetActive(false); 
+        }
+
+        animatorCharacter?.SetTrigger("Pescar");
         Invoke(nameof(IniciarMinigame), tempoDaAnimacao);
     }
 
     private void IniciarMinigame()
     {
-        if (ganchoController == null) return;
+        if (HookController == null) return;
 
-        if (ganchoController.Camera != null)
+        if (HookController.Camera != null)
         {
-            Vector3 target = ganchoController.transform.position + ganchoController.OffsetGancho;
-            ganchoController.Camera.position = target;
+            Vector3 target = HookController.transform.position + HookController.OffsetHook;
+            HookController.Camera.position = target;
         }
 
-        ganchoController.IniciarMinigameComCallback(() =>
+        HookController.IniciarMinigameComCallback(() =>
         {
             Debug.Log("Minigame finalizado!");
-            minigameEmProgresso = false;
+            minigameInProgress = false;
         });
     }
 
-    
+    private void MostrarTutorial()
+    {
+        if (textTutorial != null)
+        {
+            textTutorial.gameObject.SetActive(true);
+            tutorialDisplayed = true;
+            Invoke(nameof(EsconderTutorial), timeTutorial);
+        }
+    }
+
+    private void EsconderTutorial()
+    {
+        if (textTutorial != null)
+            textTutorial.gameObject.SetActive(false);
+    }
+
     public void AnimationEvent_IniciarMinigame()
     {
         IniciarMinigame();
